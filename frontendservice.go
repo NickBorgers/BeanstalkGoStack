@@ -5,7 +5,7 @@ import (
     "log"
     "net/http"
     "os"
-    "hash/fnv"
+    "github.com/NickBorgers/BeanstalkGoStack/DataInventer"
 )
 
 func main() {
@@ -30,8 +30,3 @@ func main() {
         http.ListenAndServe(":"+port, nil)
 }
 
-func hash(s string) uint32 {
-        h := fnv.New32a()
-        h.Write([]byte(s))
-        return h.Sum32()
-}
