@@ -9,12 +9,14 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Go code...
       - go build frontendservice.go
+      - go build crudservice.go
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
     - frontendservice
+    - crudservice
     - Procfile
     - .ebextensions/*
     - images/*

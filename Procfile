@@ -1,1 +1,2 @@
 web: frontendservice
+crud: crudservice
