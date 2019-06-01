@@ -5,7 +5,6 @@ import (
     "log"
     "net/http"
     "os"
-    "github.com/NickBorgers/BeanstalkGoStack/DataInventer"
 )
 
 func main() {
