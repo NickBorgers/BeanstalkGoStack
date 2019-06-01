@@ -5,27 +5,27 @@ import (
     "log"
     "net/http"
     "os"
+    "fmt"
 )
 
 func main() {
-    port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
         if port == "" {
-            port = "5000"
+	        port = "5000"
         }
 
-        http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-            if r.Method == "POST" {
-                if buf, err := ioutil.ReadAll(r.Body); err == nil {
-                    log.Printf("Received POST: %s\n", string(buf))
-                }
-            } else {
-		if buf, err := ioutil.ReadAll(r.Body); err == nil {
-                    log.Printf("Received GET: %s\n", string(buf))
-                }
-            }
-        })
+        http.HandleFunc("/pandas/", pandaRequestHandler);
 
         log.Printf("Listening on port %s\n\n", port)
         http.ListenAndServe(":"+port, nil)
 }
 
+func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		w.WriteHeader(http.StatusAccepted)
+               	log.Printf("Received GET: %s\n", r.URL.Path)
+        } else {
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+    		log.Printf("Rejected %s: %s\n" r.Method, r.URL.Path)
+        }
+}

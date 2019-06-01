@@ -5,6 +5,7 @@ import (
     "log"
     "net/http"
     "os"
+    "fmt"
 )
 
 func main() {
@@ -20,13 +21,11 @@ func main() {
 }
 
 func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-        	if buf, err := ioutil.ReadAll(r.Body); err == nil {
-                	log.Printf("Received POST: %s\n", string(buf))
-                }
+	if r.Method == "GET" {
+		w.WriteHeader(http.StatusAccepted)
+               	log.Printf("Received GET: %s\n", r.URL.Path)
         } else {
-                if buf, err := ioutil.ReadAll(r.Body); err == nil {
-    			log.Printf("Received GET: %s\n", string(buf))
-                }
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+    		log.Printf("Rejected %s: %s\n" r.Method, r.URL.Path)
         }
 }
