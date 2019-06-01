@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.12
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Compiling the Go code...
+      - go build frontendservice.go
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - frontendservice
+    - Procfile
+eb_codebuild_settings:
+  CodeBuildServiceRole: CodeBuildServiceRole
+  ComputeType: BUILD_GENERAL1_SMALL
+  Image: aws/codebuild/standard:2.0
+  Timeout: 60

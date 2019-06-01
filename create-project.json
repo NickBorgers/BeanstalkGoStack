@@ -1,0 +1,19 @@
+{
+  "name": "hellogo-demo-project",
+  "source": {
+    "gitCloneDepth": 1,
+    "type": "CODECOMMIT",
+    "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/HelloGo",
+    "insecureSsl": false
+  },
+  "artifacts": {
+    "type": "S3",
+    "location": "codebuild-us-east-1-181171223360-output-bucket"
+  },
+  "environment": {
+    "type": "LINUX_CONTAINER",
+    "image": "aws/codebuild/standard:2.0",
+    "computeType": "BUILD_GENERAL1_SMALL"
+  },
+  "serviceRole": "arn:aws:iam::181171223360:role/CodeBuildServiceRole"
+}
