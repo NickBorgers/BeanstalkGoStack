@@ -7,6 +7,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - echo Pull AWS SDK
+      - go get github.com/aws/aws-sdk-go
       - echo Compiling the Go code...
       - go build frontendservice.go
       - go build crudservice.go
