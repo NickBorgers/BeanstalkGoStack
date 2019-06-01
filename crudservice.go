@@ -26,6 +26,6 @@ func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
                	log.Printf("Received GET: %s\n", r.URL.Path)
         } else {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
-    		log.Printf("Rejected %s: %s\n" r.Method, r.URL.Path)
+    		log.Printf("Rejected %s: %s\n", r.Method, r.URL.Path)
         }
 }
