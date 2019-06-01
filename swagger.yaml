@@ -1,0 +1,63 @@
+swagger: "2.0"
+info:
+  description: "This is a demonstration API supporting the next leap in my career."
+  version: "1.0.0"
+  title: "Panda Health API"
+  contact:
+    email: "nickborgers@gmail.com"
+  license:
+    name: "MIT"
+    url: "https://github.com/NickBorgers/BeanstalkGoStack/blob/master/LICENSE"
+host: "pandahealth.nickborgers.com"
+basePath: "/v1"
+schemes:
+- "http"
+- "ws"
+paths:
+  /pandas/{name}:
+    get:
+      summary: "Get information about a particular panda, by its name"
+      description: ""
+      operationId: "getPandaInformation"
+      parameters:
+      - in: "path"
+        name: "name"
+        description: "Name of the panda to get information about"
+        required: true
+        type: string
+      responses:
+        202:
+          description: "Retrieving Information"
+definitions:
+  Panda:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      age:
+        type: "integer"
+        minimum: 0
+      expectedAgeAtDeath:
+        type: "integer"
+        minimum: 0
+        maximum: 35
+      expectedYearsOfMortalityRemaining:
+        type: "integer"
+        minimum: 0
+        maximum: 35
+      status:
+        type: "boolean"
+        enum:
+        - "living"
+        - "dead"
+      healthIndicators:
+        type: array
+        items:
+          $ref: "#/definitions/HealthIndicator"
+  HealthIndicator:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      lifeExpectancyImpact:
+        type: "integer"
