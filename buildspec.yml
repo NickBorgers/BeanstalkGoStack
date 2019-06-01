@@ -16,6 +16,8 @@ artifacts:
   files:
     - frontendservice
     - Procfile
+    - .ebextensions/*
+    - images/*
 eb_codebuild_settings:
   CodeBuildServiceRole: CodeBuildServiceRole
   ComputeType: BUILD_GENERAL1_SMALL
