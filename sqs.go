@@ -33,8 +33,8 @@ func sendMessage(message string, queueName string) (*sqs.SendMessageOutput) {
 func getMessages(queueName string) ([]*sqs.Message) {
 	qURL := getQueueUrl(queueName)
 
-	result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
-		        QueueUrl: resultURL.QueueUrl,
+	result, err := messageService.ReceiveMessage(&sqs.ReceiveMessageInput{
+		        QueueUrl: qURL,
 		        AttributeNames: aws.StringSlice([]string{
 				"SentTimestamp",
 		        }),
@@ -47,24 +47,28 @@ func getMessages(queueName string) ([]*sqs.Message) {
 
 	if err != nil {
 		log.Printf("Unable to get messages from queue %q, %v.", queueName, err)
+		return nil
 	} else if result == nil {
 		log.Printf("Found no messages on queue (%q) during this poll", queueName)
+		return nil
 	} else {
 		return result.Messages
 	}
 }
 
-func deleteMessage(message *Message, queueName string) {
+func deleteMessage(message *sqs.Message, queueName string) (*sqs.DeleteMessageOutput) {
 	qURL := getQueueUrl(queueName)
 
-	resultDelete, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
-	        QueueUrl:      &qURL,
+	resultDelete, err := messageService.DeleteMessage(&sqs.DeleteMessageInput{
+	        QueueUrl:      qURL,
         	ReceiptHandle: message.ReceiptHandle,
 	})
 
 	if err != nil {
         	log.Printf("Failed to delete message from queue %q, %v.", queueName, err)
-	        return
+	        return nil
+	} else {
+		return resultDelete
 	}
 }
 
