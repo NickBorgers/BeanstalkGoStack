@@ -49,7 +49,9 @@ func pandaHealthAnalysisReportsHandler(w http.ResponseWriter, r *http.Request) {
                         if err != nil {
                                 log.Println("Failed to write message to websocket:", err)
                                 break
-                        }
+                        } else {
+				deleteMessage(thisMessage, healthAnalysisQueue)
+			}
                 }
         }
 }
