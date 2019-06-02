@@ -1,7 +1,7 @@
 package main
 
 import (
-	"os"
+        "os"
 )
 
 var requestQueue = "pandaDataRequest" + os.Getenv("ENV_NAME_MODIFIER")
