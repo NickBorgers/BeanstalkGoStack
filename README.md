@@ -1,6 +1,6 @@
 # Panda Health Reporting Tool
 
-#### *It doesn't have to make sense, it just has to demonstrate a cloud-native architecture using AWS for CD*
+#### *It doesn't have to make sense, it just has to demonstrate a cloud-native architecture using AWS for CI/CD*
 
 [Product is running here](http://pandahealthreporter.us-east-1.elasticbeanstalk.com/index.html)
 
