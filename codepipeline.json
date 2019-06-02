@@ -1,0 +1,174 @@
+{
+    "pipeline": {
+        "roleArn": "arn:aws:iam::181171223360:role/service-role/AWSCodePipelineServiceRole-us-east-1-HelloGo", 
+        "stages": [
+            {
+                "name": "Source", 
+                "actions": [
+                    {
+                        "inputArtifacts": [], 
+                        "name": "Source", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Source", 
+                            "owner": "ThirdParty", 
+                            "version": "1", 
+                            "provider": "GitHub"
+                        }, 
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ], 
+                        "configuration": {
+                            "Owner": "NickBorgers", 
+                            "Repo": "BeanstalkGoStack", 
+                            "PollForSourceChanges": "false", 
+                            "Branch": "master", 
+                            "OAuthToken": "****"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "Build", 
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ], 
+                        "name": "Beanstalk-Build", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Build", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "CodeBuild"
+                        }, 
+                        "outputArtifacts": [
+                            {
+                                "name": "BuildArtifact"
+                            }
+                        ], 
+                        "configuration": {
+                            "ProjectName": "BeanstalkGoStack"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "CI-Deploy", 
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "BuildArtifact"
+                            }
+                        ], 
+                        "name": "Deploy-to-CI", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Deploy", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "ElasticBeanstalk"
+                        }, 
+                        "outputArtifacts": [], 
+                        "configuration": {
+                            "ApplicationName": "BeanstalkGoStack", 
+                            "EnvironmentName": "Beanstalkgostack-ci"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "Integration-Test", 
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ], 
+                        "name": "Integration-Test", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Build", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "CodeBuild"
+                        }, 
+                        "outputArtifacts": [], 
+                        "configuration": {
+                            "ProjectName": "BeanstalkGoStack-Integration-Test"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "Manual-Approval", 
+                "actions": [
+                    {
+                        "inputArtifacts": [], 
+                        "name": "Manual-Approval", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Approval", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "Manual"
+                        }, 
+                        "outputArtifacts": [], 
+                        "configuration": {
+                            "ExternalEntityLink": "http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }, 
+            {
+                "name": "Deploy", 
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "BuildArtifact"
+                            }
+                        ], 
+                        "name": "Deploy", 
+                        "region": "us-east-1", 
+                        "actionTypeId": {
+                            "category": "Deploy", 
+                            "owner": "AWS", 
+                            "version": "1", 
+                            "provider": "ElasticBeanstalk"
+                        }, 
+                        "outputArtifacts": [], 
+                        "configuration": {
+                            "ApplicationName": "BeanstalkGoStack", 
+                            "EnvironmentName": "Beanstalkgostack-prod"
+                        }, 
+                        "runOrder": 1
+                    }
+                ]
+            }
+        ], 
+        "artifactStore": {
+            "type": "S3", 
+            "location": "codepipeline-us-east-1-127530363166"
+        }, 
+        "name": "HelloGo", 
+        "version": 10
+    }, 
+    "metadata": {
+        "pipelineArn": "arn:aws:codepipeline:us-east-1:181171223360:HelloGo", 
+        "updated": 1559512230.56, 
+        "created": 1559407567.935
+    }
+}
