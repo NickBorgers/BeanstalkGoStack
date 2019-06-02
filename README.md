@@ -9,6 +9,12 @@
 * Golang services
 * Light, pure JavaScript UI
 
+## CI/CD summary
+![Pipeline diagram](/pipeline.png)
+* AWS CodePipeline pushing to AWS ElasticBeanstalk
+
+
+
 ## Architecture
 * Event-based
 * Microservices architecture
