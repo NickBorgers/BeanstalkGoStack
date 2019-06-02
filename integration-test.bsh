@@ -8,10 +8,10 @@ servingPandaRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.e
 
 if [[ $servingPandaRequests -ne 1 ]] ; 
 then
-	echo "Not providing expected 202 response for panda requests"
-	exit 1
+        echo "Not providing expected 202 response for panda requests"
+        exit 1
 else
-	echo "API looks fine"
+        echo "API looks fine"
 fi
 
 # Wait for event to be processed
@@ -19,28 +19,28 @@ sleep 3
 # Check if inquiry by API resulted in results being sent via websocket
 websocketlogsize=$(wc -c <"websocket.log")
 if [[ $websocketlogsize -lt 100 ]]; then
-	echo "Got insufficient data back on websocket"
-	exit 1
+        echo "Got insufficient data back on websocket"
+        exit 1
 else
-	echo "Got some result back on websocket, presuming we're good"
+        echo "Got some result back on websocket, presuming we're good"
 fi
 
 servingCssRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/css/main.css 2>&1 | grep "HTTP/1.1 200 OK" | wc -l)
 
 if [[ $servingCssRequests -ne 1 ]] ; 
 then
-	echo "Not providing CSS for web UI"
-	exit 1
+        echo "Not providing CSS for web UI"
+        exit 1
 else
-	echo "CSS seems to be there"
+        echo "CSS seems to be there"
 fi
 
 numberOfCssLines=$(curl http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/css/main.css 2>/dev/null | wc -l)
 
 if [[ $numberOfCssLines -lt 20 ]] ; 
 then
-	echo "I don't know that file is, but it's not our CSS"
-	exit 1
+        echo "I don't know that file is, but it's not our CSS"
+        exit 1
 else
-	echo "CSS looks about right"
+        echo "CSS looks about right"
 fi
