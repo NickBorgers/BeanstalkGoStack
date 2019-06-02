@@ -18,22 +18,34 @@ func main() {
                 port = "5000"
         }
 
+	// Register redirect handler for getting folks to the HTML page
+	http.HandleFunc("/", redirectToHomePage)
+
+	// Register handlers for incoming HTTP requests
         http.HandleFunc("/pandas/", pandaRequestHandler);
         http.HandleFunc("/pandas/healthReports", handleWebsocketConnections);
 
+	// Startup goroutine which watches for analysis result messages
 	go retrieveAndSendAnalysisReports()
 	log.Printf("Watching for completed analysis reports for delivery");
 
+	// Starting listening for HTTP requests
         log.Printf("Listening on port %s\n\n", port)
         http.ListenAndServe(":"+port, nil)
 }
 
+func redirectToHomePage(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/index.html", 302)
+}
+
 func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
+	// Serve requests by kicking of a synchronous request for panda health information
         if r.Method == "GET" {
                 w.WriteHeader(http.StatusAccepted)
-                       log.Printf("Received GET: %s\n", r.URL.Path)
+                log.Printf("Received GET: %s\n", r.URL.Path)
                 sendMessage(r.URL.Path, requestQueue)
         } else {
+	// Reject anything but a GET because we cannot serve them
                 http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
                     log.Printf("Rejected %s: %s\n", r.Method, r.URL.Path)
         }
