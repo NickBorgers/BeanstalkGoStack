@@ -10,8 +10,8 @@ phases:
       - echo Pull AWS SDK
       - go get github.com/aws/aws-sdk-go
       - echo Compiling the Go code...
-      - go build frontendservice.go sqs.go
-      - go build dataservice.go
+      - go build frontendservice.go sqs.go queuenames.go
+      - go build dataservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go
   post_build:
     commands:
       - echo Build completed on `date`

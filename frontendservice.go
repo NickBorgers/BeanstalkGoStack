@@ -22,7 +22,7 @@ func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		w.WriteHeader(http.StatusAccepted)
                	log.Printf("Received GET: %s\n", r.URL.Path)
-                sendMessage(r.URL.Path, "testqueue")
+                sendMessage(r.URL.Path, requestQueue)
         } else {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
     		log.Printf("Rejected %s: %s\n", r.Method, r.URL.Path)
