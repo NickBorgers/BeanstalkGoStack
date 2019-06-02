@@ -1,5 +1,9 @@
 #!/bin/bash 
 
+# Initiate websocket connection
+curl -i --no-buffer -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Host: beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com" -H "Origin: http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com" -H "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" -H "Sec-WebSocket-Version: 13" --output websocket.log --max-time 3 beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/healthReports 2>/dev/null &
+
+# Check if API requests are being fulfilled
 servingPandaRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/Winston 2>&1 | grep "HTTP/1.1 202 Accepted" | wc -l)
 
 if [[ $servingPandaRequests -ne 1 ]] ; 
@@ -8,6 +12,17 @@ then
 	exit 1
 else
 	echo "API looks fine"
+fi
+
+# Wait for event to be processed
+sleep 3
+# Check if inquiry by API resulted in results being sent via websocket
+websocketlogsize=$(wc -c <"websocket.log")
+if [[ $websocketlogsize -lt 100 ]]; then
+	echo "Got insufficient data back on websocket"
+	exit 1
+else
+	echo "Got some result back on websocket, presuming we're good"
 fi
 
 servingCssRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/css/main.css 2>&1 | grep "HTTP/1.1 200 OK" | wc -l)

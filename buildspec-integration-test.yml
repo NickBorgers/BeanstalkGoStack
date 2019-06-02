@@ -1,7 +1,14 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      golang: 1.12
+  pre_build:
+    commands:
+      - echo Set executable permission on script
+      - chmod 700 ./integration-test.bsh
   build:
     commands:
       - echo Attempt run integration test
-      - integration-test.bsh
+      - ./integration-test.bsh
