@@ -5,15 +5,15 @@
 [Product is running here](http://pandahealthreporter.us-east-1.elasticbeanstalk.com/index.html)
 
 ## Technical summary
-* Elastic Beanstalk for hosting
+* Use of AWS for pipeline and operation
 * Golang services
 * Light, pure JavaScript UI
 
 ## CI/CD summary
 ![Pipeline diagram](/pipeline.png)
-* AWS CodePipeline pushing to AWS ElasticBeanstalk
-
-
+* [AWS CodePipeline pushing to AWS ElasticBeanstalk](/codepipeline.json)
+* [AWS CodeBuild for building Golang and integration test](/codebuild.json)
+* [Elastic Beanstalk for hosting](/elasticbeanstalkenvironments.json)
 
 ## Architecture
 * Event-based
