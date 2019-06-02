@@ -2,7 +2,7 @@
 
 #### *It doesn't have to make sense, it just has to demonstrate a cloud-native architecture using AWS for CD*
 
-[Product is running here](http://hellogo-env.mfrmtm2ahc.us-east-1.elasticbeanstalk.com/index.html)
+[Product is running here](http://pandahealthreporter.us-east-1.elasticbeanstalk.com/index.html)
 
 ## Technical summary
 * Elastic Beanstalk for hosting
