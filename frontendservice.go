@@ -9,6 +9,9 @@ import (
         "github.com/gorilla/websocket"
 )
 
+var clients = make(map[*websocket.Conn]bool)
+var upgrader = websocket.Upgrader{}
+
 func main() {
         port := os.Getenv("PORT")
         if port == "" {
@@ -16,7 +19,10 @@ func main() {
         }
 
         http.HandleFunc("/pandas/", pandaRequestHandler);
-        http.HandleFunc("/pandas/healthReports", pandaHealthAnalysisReportsHandler);
+        http.HandleFunc("/pandas/healthReports", handleWebsocketConnections);
+
+	go retrieveAndSendAnalysisReports()
+	log.Printf("Watching for completed analysis reports for delivery");
 
         log.Printf("Listening on port %s\n\n", port)
         http.ListenAndServe(":"+port, nil)
@@ -33,35 +39,46 @@ func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
         }
 }
 
-var upgrader = websocket.Upgrader{}
-
-func pandaHealthAnalysisReportsHandler(w http.ResponseWriter, r *http.Request) {
-        log.Printf("Watching for completed analysis reports for delivery");
+func handleWebsocketConnections(w http.ResponseWriter, r *http.Request) {
+        // Upgrade initial GET request to a websocket
         socket, err := upgrader.Upgrade(w, r, nil)
         if err != nil {
-                log.Print("upgrade:", err)
-                return
+                log.Fatal(err)
         }
+        // Make sure we close the connection when the function returns
         defer socket.Close()
-        for {
+
+	// Register our new client
+        clients[socket] = true
+}
+
+func retrieveAndSendAnalysisReports() {
+	for {
                 messages := getMessages(healthAnalysisQueue)
                 for _, thisMessage := range messages {
                         var jsonPandaHealthAnalysis string = *thisMessage.Body
-                        socket.WriteMessage(websocket.TextMessage, []byte(jsonPandaHealthAnalysis))
-                        if err != nil {
-                                log.Println("Failed to write message to websocket:", err)
-                                break
-                        } else {
-                                deleteMessage(thisMessage, healthAnalysisQueue)
-                                var pandaHealthAnalysis PandaHealthAnalysis
-                                json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
-                                if err == nil {
-                                        log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
-                                } else {
-                                        log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
 
-                                }
+			for client := range clients {
+        	                err := client.WriteMessage(websocket.TextMessage, []byte(jsonPandaHealthAnalysis))
+	                        if err != nil {
+	                                log.Printf("Failed to send message to a client: %v", err)
+	                                client.Close()
+	                                delete(clients, client)
+	                        }
+	                }
+
+			// Delete delivered message
+                        deleteMessage(thisMessage, healthAnalysisQueue)
+
+			// Attempt to report on success of message delivery
+                        var pandaHealthAnalysis PandaHealthAnalysis
+                        err := json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
+                        if err == nil {
+                                log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
+                        } else {
+                                log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
                         }
                 }
         }
+
 }
