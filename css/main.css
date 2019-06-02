@@ -10,3 +10,11 @@
 .HealthIndicatorList {
 	padding: 1em;
 }
+
+.PositiveHealthIndicator {
+	background: #lightgreen;
+}
+
+.NegativeHealthIndicator {
+	background #lightred;
+}
