@@ -10,7 +10,7 @@ phases:
       - echo Pull AWS SDK
       - go get github.com/aws/aws-sdk-go
       - echo Compiling the Go code...
-      - go build frontendservice.go
+      - go build frontendservice.go sqs.go
       - go build crudservice.go
   post_build:
     commands:
