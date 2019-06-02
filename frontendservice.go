@@ -32,6 +32,16 @@ func pandaRequestHandler(w http.ResponseWriter, r *http.Request) {
         }
 }
 
+
+func processReceivedPandaHealthAnalysis() {
+	for {
+                messages := getMessages(healthAnalysisQueue)
+                for _, thisMessage := range messages {
+                        deliverReceivedPandaHealthAnalysis(*thisMessage.Body)
+                }
+        }
+}
+
 var upgrader = websocket.Upgrader{}
 
 func pandaHealthAnalysisReportsHandler(w http.ResponseWriter, r *http.Request) {
@@ -54,4 +64,8 @@ func pandaHealthAnalysisReportsHandler(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+}
+
+func deliverReceivedPandaHealthAnalysis(pandaHealthAnalysis string) {
+
 }
