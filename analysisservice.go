@@ -20,17 +20,20 @@ func processPandaAnalysisRequest(message *sqs.Message) {
 	var pandaHealthData PandaHealthData
 
 	err := json.Unmarshal([]byte(jsonPandaHealthData), pandaHealthData)
+	if err == nil {
+		pandaHealthAnalysis := analyzePandaHealthData(pandaHealthData)
 
-	pandaHealthAnalysis := analyzePandaHealthData(pandaHealthData)
-
-        jsonPandaHealthAnalysis,err := json.Marshal(pandaHealthAnalysis)
-        if err == nil {
-                sendMessage(string(jsonPandaHealthAnalysis), healthAnalysisQueue)
-                log.Printf("Analyzed and sent along analysis for health of panda %s", pandaHealthData.Name)
-                deleteMessage(message, healthDataQueue)
-        } else {
-                log.Printf("Could not analyze health data for panda %s", pandaHealthData.Name)
-        }
+	        jsonPandaHealthAnalysis,err := json.Marshal(pandaHealthAnalysis)
+	        if err == nil {
+	                sendMessage(string(jsonPandaHealthAnalysis), healthAnalysisQueue)
+	                log.Printf("Analyzed and sent along analysis for health of panda %s", pandaHealthData.Name)
+	                deleteMessage(message, healthDataQueue)
+	        } else {
+	                log.Printf("Could not analyze health data for panda %s", pandaHealthData.Name)
+	        }
+	} else {
+		log.Printf("Could not parse health data for panda: %s", jsonPandaHealthData)
+	}
 }
 
 func analyzePandaHealthData(healthData PandaHealthData) PandaHealthAnalysis {
