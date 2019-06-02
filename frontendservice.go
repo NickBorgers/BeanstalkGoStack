@@ -17,6 +17,8 @@ func main() {
         http.HandleFunc("/pandas/", pandaRequestHandler);
 	http.HandleFunc("/pandas/healthReports", pandaHealthAnalysisReportsHandler);
 
+	go processReceivedPandaHealthAnalysis()
+	log.Printf("Watching for completed analysis reports for delivery");
         log.Printf("Listening on port %s\n\n", port)
         http.ListenAndServe(":"+port, nil)
 }
