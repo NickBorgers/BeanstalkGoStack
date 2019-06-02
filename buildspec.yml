@@ -17,7 +17,7 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Go code...
       - echo Build frontend service
-      - go build frontendservice.go sqs.go queuenames.go
+      - go build frontendservice.go sqs.go queuenames.go pandahealthstructs.go
       - echo Build data service
       - go build dataservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go constants.go
       - echo Build analysis service
@@ -33,6 +33,8 @@ artifacts:
     - Procfile
     - .ebextensions/*
     - images/*
+    - html/*
+    - css/*
 eb_codebuild_settings:
   CodeBuildServiceRole: CodeBuildServiceRole
   ComputeType: BUILD_GENERAL1_SMALL

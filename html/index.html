@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+        <input id="PandaName" type="text" value="Winston"></input>
+        <button id="RequestHealthInformationButton" onclick="requestHealthReportOnPanda()">Click to request information about this panda.</button>
+        
+        <div id="Output"></div>
+
+        <script>
+                function requestHealthReportOnPanda() {
+                        var nameOfPandaToRequestReportFor = document.getElementById("PandaName").value
+                        var opts = {
+                                method: 'GET',      
+                                headers: {}
+                        };
+                        fetch('/pandas/' + nameOfPandaToRequestReportFor, opts).then(function (response) {
+                                var requestResultDiv = document.createElement("div");
+                                if (response.ok) {
+                                        requestResultDiv.classList.add("RequestSuccess");                                
+                                        requestResultDiv.innerText = "Successfully requested information about panda: " + nameOfPandaToRequestReportFor;
+                                } else {
+                                        requestResultDiv.classList.add("RequestFailure");
+                                        requestResultDiv.innerText = "Failed to request information about panda: " + nameOfPandaToRequestReportFor;
+                                }
+                                document.getElementById("Output").appendChild(requestResultDiv);
+                        });
+                }
+
+                function buildHealthAnalysisReportStructure() {
+                        var reportDiv = document.createElement("div");
+                        reportDiv.classList.add("HealthAnalysisReport");
+
+                        var referenceOutputDiv = document.createElement("div");
+                        var referenceLabelSpan = document.createElement("span");
+                                referenceLabelSpan.classList.add("Label");
+                        var referenceValueSpan = document.createElement("span");
+                                referenceValueSpan.classList.add("Value");
+
+                        referenceOutputDiv.appendChild(referenceLabelSpan);
+                        referenceOutputDiv.appendChild(referenceValueSpan);
+
+
+                        var nameDiv = referenceOutputDiv.cloneNode(true)
+                                nameDiv.classList.add("Name");
+                                nameDiv.getElementsByClassName("Label")[0].innerHTML = "Name:";
+                        reportDiv.appendChild(nameDiv);
+
+                        var statusDiv = referenceOutputDiv.cloneNode(true)
+                                statusDiv.classList.add("Status");
+                                statusDiv.getElementsByClassName("Label")[0].innerHTML = "Status: ";
+                        reportDiv.appendChild(statusDiv);
+
+                        var ageDiv = referenceOutputDiv.cloneNode(true)
+                                ageDiv.classList.add("Age");
+                                ageDiv.getElementsByClassName("Label")[0].innerHTML = "Current age (in years): ";
+                        reportDiv.appendChild(ageDiv);
+
+                        var expectedAgeAtDeathDiv = referenceOutputDiv.cloneNode(true)
+                                expectedAgeAtDeathDiv.classList.add("ExpectedAgeAtDeath");
+                                expectedAgeAtDeathDiv.getElementsByClassName("Label")[0].innerHTML = "Expected age at death (in years): ";
+                        reportDiv.appendChild(expectedAgeAtDeathDiv);
+
+                        var expectedYearsOfMortalityRemainingDiv = referenceOutputDiv.cloneNode(true)
+                                expectedYearsOfMortalityRemainingDiv.classList.add("ExpectedYearsOfMortalityRemaining");
+                                expectedYearsOfMortalityRemainingDiv.getElementsByClassName("Label")[0].innerHTML = "Expected life reamaining (in years): "
+                        reportDiv.appendChild(expectedYearsOfMortalityRemainingDiv);
+
+
+                        var healthIndicatorsListDiv = referenceOutputDiv.cloneNode(false);
+                                healthIndicatorsListDiv.classList.add("HealthIndicatorList");
+                                var healthIndicatorSummaryDiv = referenceOutputDiv.cloneNode(false);
+                                        healthIndicatorSummaryDiv.classList.add("HealthIndicatorSummary");
+                                        var healthIndicatorNameDiv = referenceOutputDiv.cloneNode(true);
+                                                healthIndicatorNameDiv.classList.add("IndicatorName");
+                                                healthIndicatorNameDiv.getElementsByClassName("Label")[0].innerHTML = "Health indicator: ";
+                                        healthIndicatorSummaryDiv.appendChild(healthIndicatorNameDiv);
+                                        var healthIndicatorImpactDiv = referenceOutputDiv.cloneNode(true);
+                                                healthIndicatorImpactDiv.classList.add("IndicatorImpact");
+                                                healthIndicatorImpactDiv.getElementsByClassName("Label")[0].innerHTML = "Impact on Life Expectancy: ";
+                                        healthIndicatorSummaryDiv.appendChild(healthIndicatorImpactDiv);
+                                healthIndicatorsListDiv.appendChild(healthIndicatorSummaryDiv);
+                        reportDiv.appendChild(healthIndicatorsListDiv);
+
+                        return reportDiv;
+                }
+
+                function printJsonHealthAnalysis(jsonString) {
+                        healthAnalysis = JSON.parse(jsonString);
+                        var reportDiv = buildHealthAnalysisReportStructure();
+
+                        reportDiv.getElementsByClassName("Name")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.name;
+                        reportDiv.getElementsByClassName("Status")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.status;
+                        if (healthAnalysis.status == "dead") {
+                                reportDiv.classList.add("Dead");
+                        }
+                        reportDiv.getElementsByClassName("Age")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.age;
+                        reportDiv.getElementsByClassName("ExpectedAgeAtDeath")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.expectedAgeAtDeath;
+                        reportDiv.getElementsByClassName("ExpectedYearsOfMortalityRemaining")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.expectedYearsOfMortalityRemaining;
+                        
+                        var healthIndicatorsListDiv = reportDiv.getElementsByClassName("HealthIndicatorList")[0];
+                        reportDiv.removeChild(healthIndicatorsListDiv);
+                        var baseHealthIndicatorSummaryDiv = healthIndicatorsListDiv.getElementsByClassName("HealthIndicatorSummary")[0].cloneNode(true);
+                        healthIndicatorsListDiv.removeChild(healthIndicatorsListDiv.childNodes[0]);
+
+                        healthAnalysis.healthIndicators.forEach(function (element) {
+                                var thisHealthIndicatorSummaryDiv = baseHealthIndicatorSummaryDiv.cloneNode(true);
+                                thisHealthIndicatorSummaryDiv.getElementsByClassName("IndicatorName")[0].getElementsByClassName("Value")[0].innerText = element.name
+                                thisHealthIndicatorSummaryDiv.getElementsByClassName("IndicatorImpact")[0].getElementsByClassName("Value")[0].innerText = (Math.floor(element.lifeExpectancyImpact * 100) + "%");
+                                if (element.lifeExpectancyImpact < 0) {
+                                        thisHealthIndicatorSummaryDiv.classList.add("NegativeHealthIndicator");
+                                } else {
+                                        thisHealthIndicatorSummaryDiv.classList.add("PositiveHealthIndicator")
+                                }
+                                healthIndicatorsListDiv.appendChild(thisHealthIndicatorSummaryDiv);
+                        });
+                        
+                        reportDiv.appendChild(healthIndicatorsListDiv);
+
+                        document.getElementById("Output").appendChild(reportDiv);
+                }
+
+                window.addEventListener("load", function(evt) {
+                        var ws = new WebSocket("ws://" + window.location.host + "/pandas/healthReports");
+                        ws.onopen = function(evt) {
+                            console.log("Ready to receive Panda Health Analysis Reports");
+                        }
+                        ws.onmessage = function(evt) {
+                            printJsonHealthAnalysis(evt.data);
+                        }
+                });
+        </script>
+</body>
