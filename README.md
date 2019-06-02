@@ -19,7 +19,9 @@
 
 [I produced some Swagger 2.0 to get started, but did not refer to it much after struct definition in Go.](https://github.com/NickBorgers/BeanstalkGoStack/blob/master/swagger.yaml) I do not know how to represent WebSockets in Swagger, and quality swagger was not part of this plan.
 
-### Component descriptions
+## Component descriptions
+
+### Services
 The three services are copuled by message queue and event syntax. No versioning of events was implemented.
 The UI is hosted outside of the Go microservices by NGINX itself.
 
@@ -48,6 +50,8 @@ The UI is hosted outside of the Go microservices by NGINX itself.
     * Takes in requests for analysis about pandas via data queue
     * Performs analysis based on information included in received message
     * Pushes results onto analysis queue as [JSON objects](/pandahealthstructs.go#L10-L17)
+
+### Other stuff
 * UI
     * [Main file](/html/index.html)
     * [Passthrough during build](/buildspec.yml#L35-L36)
