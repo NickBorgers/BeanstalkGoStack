@@ -45,8 +45,6 @@ func handleWebsocketConnections(w http.ResponseWriter, r *http.Request) {
         if err != nil {
                 log.Fatal(err)
         }
-        // Make sure we close the connection when the function returns
-        defer socket.Close()
 
 	// Register our new client
         clients[socket] = true
