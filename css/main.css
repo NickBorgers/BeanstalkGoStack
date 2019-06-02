@@ -1,10 +1,14 @@
+html * {
+	font-family: Arial;
+}
+
 .HealthAnalysisReport {
-	background: #lightblue;
+	background: #e2edff;
 	padding: 1em;
 }
 
 .Dead {
-	background: #lightgray;
+	background: #b2b2b2;
 }
 
 .HealthIndicatorList {
@@ -12,9 +16,9 @@
 }
 
 .PositiveHealthIndicator {
-	background: #lightgreen;
+	background: #e8ffe8;
 }
 
 .NegativeHealthIndicator {
-	background #lightred;
+	background #ffe8e8;
 }
