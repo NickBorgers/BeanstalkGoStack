@@ -104,7 +104,7 @@
 		}
 
 		window.addEventListener("load", function(evt) {
-			var ws = new WebSocket("{{.}}");
+			var ws = new WebSocket("ws://" + window.location.host + "/pandas/healthReports");
 			ws.onopen = function(evt) {
 		            console.log("Ready to receive Panda Health Analysis Reports");
 		        }
