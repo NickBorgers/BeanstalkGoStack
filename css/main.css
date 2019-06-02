@@ -1,0 +1,12 @@
+.HealthAnalysisReport {
+	background: #lightblue;
+	padding: 1em;
+}
+
+.Dead {
+	background: #lightgray;
+}
+
+.HealthIndicatorList {
+	padding: 1em;
+}

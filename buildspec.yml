@@ -34,6 +34,7 @@ artifacts:
     - .ebextensions/*
     - images/*
     - html/*
+    - css/*
 eb_codebuild_settings:
   CodeBuildServiceRole: CodeBuildServiceRole
   ComputeType: BUILD_GENERAL1_SMALL
