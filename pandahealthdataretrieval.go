@@ -1,12 +1,12 @@
 package main
 
 import (
-	"hash/fnv"
+        "hash/fnv"
 )
 
 func getHealthDataForPandaByName(name string) PandaHealthData {
-	var pandaHealthData PandaHealthData
-	pandaHealthData.Name = name
+        var pandaHealthData PandaHealthData
+        pandaHealthData.Name = name
 
         var nameKey = hash(name)
 
@@ -16,11 +16,11 @@ func getHealthDataForPandaByName(name string) PandaHealthData {
         if isAliveKey < 3 {
                 status = "dead"
         }
-	pandaHealthData.Status = status
+        pandaHealthData.Status = status
 
         // Lookup current age of panda
         var currentAge = nameKey % uint32(pandaMaxLife)
-	pandaHealthData.Age = uint(currentAge)
+        pandaHealthData.Age = uint(currentAge)
 
         // Lookup health indicators
         var numberOfHealthIndicators = nameKey % 3 + 1
@@ -30,7 +30,7 @@ func getHealthDataForPandaByName(name string) PandaHealthData {
                 healthIndicators[i] = thisHealthIndicator
         }
 
-	pandaHealthData.HealthIndicators = healthIndicators
+        pandaHealthData.HealthIndicators = healthIndicators
 
         return pandaHealthData
 }
@@ -42,6 +42,6 @@ func hash(s string) uint32 {
 }
 
 func getHealthIndicator(key uint32) (HealthIndicator) {
-	var healthIndicatorIndex = key % uint32(len(pandaHealthIndicators))
+        var healthIndicatorIndex = key % uint32(len(pandaHealthIndicators))
         return pandaHealthIndicators[healthIndicatorIndex]
 }

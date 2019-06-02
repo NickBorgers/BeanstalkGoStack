@@ -1,7 +1,7 @@
 package main
 
 var pandaHealthIndicators = [...]HealthIndicator{ 
-	HealthIndicator{Name: "Alcoholism", LifeExpectancyImpact: -.25},
+        HealthIndicator{Name: "Alcoholism", LifeExpectancyImpact: -.25},
         HealthIndicator{Name: "Good Genes", LifeExpectancyImpact: .15},
         HealthIndicator{Name: "Vigorous Libido", LifeExpectancyImpact: .2},
         HealthIndicator{Name: "Eats Meat", LifeExpectancyImpact: .35},
