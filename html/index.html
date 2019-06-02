@@ -103,12 +103,12 @@
                         var healthIndicatorsListDiv = reportDiv.getElementsByClassName("HealthIndicatorList")[0];
                         reportDiv.removeChild(healthIndicatorsListDiv);
                         var baseHealthIndicatorSummaryDiv = healthIndicatorsListDiv.getElementsByClassName("HealthIndicatorSummary")[0].cloneNode(true);
-                        healthIndicatorsListDiv.removeChild(baseHealthIndicatorSummaryDiv);
+                        healthIndicatorsListDiv.removeChild(healthIndicatorsListDiv.childNodes[0]);
 
-                        healthAnalysis.HealthIndicators.forEach(function (element) {
+                        healthAnalysis.healthIndicators.forEach(function (element) {
                                 var thisHealthIndicatorSummaryDiv = baseHealthIndicatorSummaryDiv.cloneNode(true);
                                 thisHealthIndicatorSummaryDiv.getElementsByClassName("IndicatorName")[0].getElementsByClassName("Value")[0].innerText = element.name
-                                thisHealthIndicatorSummaryDiv.getElementsByClassName("IndicatorImpact")[0].getElementsByClassName("Value")[0].innerText = (Math.floor(element.lifeExpectancyImpact) + "%");
+                                thisHealthIndicatorSummaryDiv.getElementsByClassName("IndicatorImpact")[0].getElementsByClassName("Value")[0].innerText = (Math.floor(element.lifeExpectancyImpact * 100) + "%");
                                 if (element.lifeExpectancyImpact < 0) {
                                         thisHealthIndicatorSummaryDiv.classList.add("NegativeHealthIndicator");
                                 } else {
