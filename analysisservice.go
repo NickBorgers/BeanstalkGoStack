@@ -37,21 +37,30 @@ func processPandaAnalysisRequest(message *sqs.Message) {
 }
 
 func analyzePandaHealthData(healthData PandaHealthData) PandaHealthAnalysis {
-	var maximumRemainingLifeExpectancy int = int(pandaMaxLife - healthData.Age)
 	
-	lifeExpectancyImpacts := make([]int, len(healthData.HealthIndicators))
+	var maximumRemainingLifeExpectancy int
 
-	for index, thisHealthIndicator := range healthData.HealthIndicators {
-	        var expectancyImpact = thisHealthIndicator.LifeExpectancyImpact*float32(maximumRemainingLifeExpectancy)
-		lifeExpectancyImpacts[index] = int(expectancyImpact)
-        }
+	if healthData.Status != "dead" {
 
-	for _, thisLifeExpectancyImpact := range lifeExpectancyImpacts {
-		maximumRemainingLifeExpectancy += thisLifeExpectancyImpact
-	}
+		maximumRemainingLifeExpectancy = int(pandaMaxLife - healthData.Age)
+	
+		lifeExpectancyImpacts := make([]int, len(healthData.HealthIndicators))
 
-	if maximumRemainingLifeExpectancy <= 0 {
-		maximumRemainingLifeExpectancy = 0
+		for index, thisHealthIndicator := range healthData.HealthIndicators {
+		        var expectancyImpact = thisHealthIndicator.LifeExpectancyImpact*float32(maximumRemainingLifeExpectancy)
+			lifeExpectancyImpacts[index] = int(expectancyImpact)
+	        }
+
+		for _, thisLifeExpectancyImpact := range lifeExpectancyImpacts {
+			maximumRemainingLifeExpectancy += thisLifeExpectancyImpact
+		}
+
+		if maximumRemainingLifeExpectancy <= 0 {
+			maximumRemainingLifeExpectancy = 0
+		}
+
+	} else {
+		maximumRemainingLifeExpectancy = int(0)
 	}
 
 	var healthAnalysis PandaHealthAnalysis
