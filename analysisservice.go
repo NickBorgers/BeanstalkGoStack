@@ -19,7 +19,7 @@ func processPandaAnalysisRequest(message *sqs.Message) {
         var jsonPandaHealthData string = *message.Body
 	var pandaHealthData PandaHealthData
 
-	err := json.Unmarshal([]byte(jsonPandaHealthData), pandaHealthData)
+	err := json.Unmarshal([]byte(jsonPandaHealthData), &pandaHealthData)
 	if err == nil {
 		pandaHealthAnalysis := analyzePandaHealthData(pandaHealthData)
 
