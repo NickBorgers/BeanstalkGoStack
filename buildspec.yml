@@ -32,7 +32,6 @@ artifacts:
     - analysisservice
     - Procfile
     - .ebextensions/*
-    - images/*
     - html/*
     - css/*
 eb_codebuild_settings:
