@@ -2,6 +2,10 @@ html * {
 	font-family: Arial;
 }
 
+div {
+	border-radius: 15px;
+}
+
 .HealthAnalysisReport {
 	background: #f2f7ff;
 	padding: 1em;
@@ -12,7 +16,11 @@ html * {
 }
 
 .HealthIndicatorList {
-	padding: 1em;
+	padding: .5em;
+}
+
+.HealthIndicatorSummary {
+	padding: .5em;
 }
 
 .PositiveHealthIndicator {
