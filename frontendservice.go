@@ -60,26 +60,40 @@ func retrieveAndSendAnalysisReports() {
                 for _, thisMessage := range messages {
                         var jsonPandaHealthAnalysis string = *thisMessage.Body
 
+			var atLeastOneSuccessfulDelivery = false
+
 			for client := range clients {
         	                err := client.WriteMessage(websocket.TextMessage, []byte(jsonPandaHealthAnalysis))
 	                        if err != nil {
 	                                log.Printf("Failed to send message to a client: %v", err)
 	                                client.Close()
 	                                delete(clients, client)
-	                        }
+	                        } else {
+					atLeastOneSuccessfulDelivery = true
+				}
 	                }
-
-			// Delete delivered message
-                        deleteMessage(thisMessage, healthAnalysisQueue)
 
 			// Attempt to report on success of message delivery
                         var pandaHealthAnalysis PandaHealthAnalysis
                         err := json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
-                        if err == nil {
-                                log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
-                        } else {
-                                log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
-                        }
+
+
+			if atLeastOneSuccessfulDelivery {
+				// Delete delivered message
+	                        deleteMessage(thisMessage, healthAnalysisQueue)
+	
+	                        if err == nil {
+	                                log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
+	                        } else {
+	                                log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
+	                        }
+			} else {
+				if err == nil {
+                                        log.Printf("Failed to deliver to any client the health analysis results for panda %s", pandaHealthAnalysis.Name)
+                                } else {
+                                        log.Printf("Failed to deliver to any client the health analysis results for report that coudld not be parsed %s", jsonPandaHealthAnalysis)
+                                }
+			}
                 }
         }
 
