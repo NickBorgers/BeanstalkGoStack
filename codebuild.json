@@ -1,0 +1,122 @@
+{
+    "projectsNotFound": [], 
+    "projects": [
+        {
+            "logsConfig": {
+                "s3Logs": {
+                    "status": "DISABLED"
+                }, 
+                "cloudWatchLogs": {
+                    "status": "ENABLED"
+                }
+            }, 
+            "timeoutInMinutes": 60, 
+            "name": "BeanstalkGoStack", 
+            "serviceRole": "arn:aws:iam::181171223360:role/service-role/codebuild-BeanstalkGoStack-service-role", 
+            "tags": [], 
+            "artifacts": {
+                "type": "NO_ARTIFACTS"
+            }, 
+            "lastModified": 1559492379.975, 
+            "cache": {
+                "type": "NO_CACHE"
+            }, 
+            "webhook": {
+                "url": "https://api.github.com/repos/NickBorgers/BeanstalkGoStack/hooks/114197153", 
+                "filterGroups": [
+                    [
+                        {
+                            "pattern": "PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED, PUSH, PULL_REQUEST_REOPENED", 
+                            "type": "EVENT", 
+                            "excludeMatchedPattern": false
+                        }
+                    ]
+                ], 
+                "payloadUrl": "https://codebuild.us-east-1.amazonaws.com/webhooks?t=eyJlbmNyeXB0ZWREYXRhIjoiempvanRkSE83aERrZXFyYjZzdk9QY1BMNU43ZFA2UmFDVnFRdUhDWFJ1cWh2VjlGOFFmclpmQUZCWndPaVpoU1Y2QVAvTnd4TXNESVdHbHFWUWdGV1RRPSIsIml2UGFyYW1ldGVyU3BlYyI6Im1zcG5jWkloNDMvamNnM0oiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&v=1"
+            }, 
+            "created": 1559492379.28, 
+            "environment": {
+                "computeType": "BUILD_GENERAL1_SMALL", 
+                "imagePullCredentialsType": "CODEBUILD", 
+                "privilegedMode": false, 
+                "image": "aws/codebuild/standard:2.0", 
+                "environmentVariables": [], 
+                "type": "LINUX_CONTAINER"
+            }, 
+            "source": {
+                "gitCloneDepth": 1, 
+                "type": "GITHUB", 
+                "location": "https://github.com/NickBorgers/BeanstalkGoStack.git", 
+                "insecureSsl": false, 
+                "reportBuildStatus": false
+            }, 
+            "badge": {
+                "badgeEnabled": false
+            }, 
+            "queuedTimeoutInMinutes": 480, 
+            "secondaryArtifacts": [], 
+            "secondarySources": [], 
+            "encryptionKey": "arn:aws:kms:us-east-1:181171223360:alias/aws/s3", 
+            "arn": "arn:aws:codebuild:us-east-1:181171223360:project/BeanstalkGoStack"
+        }, 
+        {
+            "logsConfig": {
+                "s3Logs": {
+                    "status": "DISABLED"
+                }, 
+                "cloudWatchLogs": {
+                    "status": "ENABLED"
+                }
+            }, 
+            "timeoutInMinutes": 60, 
+            "name": "BeanstalkGoStack-Integration-Test", 
+            "serviceRole": "arn:aws:iam::181171223360:role/service-role/codebuild-BeanstalkGoStack-service-role", 
+            "tags": [], 
+            "artifacts": {
+                "type": "NO_ARTIFACTS"
+            }, 
+            "lastModified": 1559513473.091, 
+            "cache": {
+                "type": "NO_CACHE"
+            }, 
+            "webhook": {
+                "url": "https://api.github.com/repos/NickBorgers/BeanstalkGoStack/hooks/114250814", 
+                "filterGroups": [
+                    [
+                        {
+                            "pattern": "PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED, PULL_REQUEST_REOPENED", 
+                            "type": "EVENT", 
+                            "excludeMatchedPattern": false
+                        }
+                    ]
+                ], 
+                "payloadUrl": "https://codebuild.us-east-1.amazonaws.com/webhooks?t=eyJlbmNyeXB0ZWREYXRhIjoiOVNFbjd0ZVgzU1AwQ3RaamVQTitQbTNWQXQvSFZQdDZkbWNodjFndXJTOG5sTERaaXp1cTJKRFRwUlhRNFQ0VzV6Uy95N09UbWFwSUZ4UHNJVm9Kc1pVPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik05d01FZ0VKc3RvUXBpcGMiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&v=1"
+            }, 
+            "created": 1559512137.431, 
+            "environment": {
+                "computeType": "BUILD_GENERAL1_SMALL", 
+                "imagePullCredentialsType": "CODEBUILD", 
+                "privilegedMode": false, 
+                "image": "aws/codebuild/standard:2.0", 
+                "environmentVariables": [], 
+                "type": "LINUX_CONTAINER"
+            }, 
+            "source": {
+                "buildspec": "buildspec-integration-test.yml", 
+                "insecureSsl": false, 
+                "location": "https://github.com/NickBorgers/BeanstalkGoStack.git", 
+                "gitCloneDepth": 1, 
+                "type": "GITHUB", 
+                "reportBuildStatus": false
+            }, 
+            "badge": {
+                "badgeEnabled": false
+            }, 
+            "queuedTimeoutInMinutes": 480, 
+            "secondaryArtifacts": [], 
+            "secondarySources": [], 
+            "encryptionKey": "arn:aws:kms:us-east-1:181171223360:alias/aws/s3", 
+            "arn": "arn:aws:codebuild:us-east-1:181171223360:project/BeanstalkGoStack-Integration-Test"
+        }
+    ]
+}

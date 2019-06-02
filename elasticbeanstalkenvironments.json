@@ -1,0 +1,50 @@
+{
+    "Environments": [
+        {
+            "ApplicationName": "BeanstalkGoStack", 
+            "EnvironmentName": "Beanstalkgostack-ci", 
+            "VersionLabel": "code-pipeline-1559514125458-BuildArtifact-52c49a0f-f3fb-4de4-98da-1c040357ea7b", 
+            "Status": "Ready", 
+            "EnvironmentArn": "arn:aws:elasticbeanstalk:us-east-1:181171223360:environment/BeanstalkGoStack/Beanstalkgostack-ci", 
+            "EnvironmentLinks": [], 
+            "PlatformArn": "arn:aws:elasticbeanstalk:us-east-1::platform/Go 1 running on 64bit Amazon Linux/2.11.1", 
+            "EndpointURL": "18.213.73.215", 
+            "SolutionStackName": "64bit Amazon Linux 2018.03 v2.11.1 running Go 1.12.4", 
+            "HealthStatus": "Ok", 
+            "EnvironmentId": "e-vrikzra2pr", 
+            "CNAME": "Beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com", 
+            "AbortableOperationInProgress": false, 
+            "Tier": {
+                "Version": "1.0", 
+                "Type": "Standard", 
+                "Name": "WebServer"
+            }, 
+            "Health": "Green", 
+            "DateUpdated": "2019-06-02T22:22:30.640Z", 
+            "DateCreated": "2019-06-02T21:03:11.925Z"
+        }, 
+        {
+            "ApplicationName": "BeanstalkGoStack", 
+            "EnvironmentName": "Beanstalkgostack-prod", 
+            "VersionLabel": "code-pipeline-1559513955097-BuildArtifact-43e316e1-2f3b-4444-875a-5300ad8a52c1", 
+            "Status": "Ready", 
+            "EnvironmentArn": "arn:aws:elasticbeanstalk:us-east-1:181171223360:environment/BeanstalkGoStack/Beanstalkgostack-prod", 
+            "EnvironmentLinks": [], 
+            "PlatformArn": "arn:aws:elasticbeanstalk:us-east-1::platform/Go 1 running on 64bit Amazon Linux/2.11.1", 
+            "EndpointURL": "3.216.219.52", 
+            "SolutionStackName": "64bit Amazon Linux 2018.03 v2.11.1 running Go 1.12.4", 
+            "HealthStatus": "Ok", 
+            "EnvironmentId": "e-j7hsirce2j", 
+            "CNAME": "pandahealthreporter.us-east-1.elasticbeanstalk.com", 
+            "AbortableOperationInProgress": false, 
+            "Tier": {
+                "Version": "1.0", 
+                "Type": "Standard", 
+                "Name": "WebServer"
+            }, 
+            "Health": "Green", 
+            "DateUpdated": "2019-06-02T22:19:39.864Z", 
+            "DateCreated": "2019-06-02T21:02:53.898Z"
+        }
+    ]
+}
