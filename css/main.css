@@ -3,12 +3,12 @@ html * {
 }
 
 .HealthAnalysisReport {
-	background: #e2edff;
+	background: #f2f7ff;
 	padding: 1em;
 }
 
 .Dead {
-	background: #b2b2b2;
+	background: #f2f2f2;
 }
 
 .HealthIndicatorList {
@@ -16,9 +16,9 @@ html * {
 }
 
 .PositiveHealthIndicator {
-	background: #e8ffe8;
+	background: #fcfffc;
 }
 
 .NegativeHealthIndicator {
-	background: #ffe8e8;
+	background: #fff9f9;
 }
