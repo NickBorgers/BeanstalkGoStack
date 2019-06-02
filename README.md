@@ -17,6 +17,8 @@
 
 ![UML Sequence Diagram](/UML-Sequence.png)
 
+[I produced some Swagger 2.0 to get started, but did not refer to it much after struct definition in Go.](https://github.com/NickBorgers/BeanstalkGoStack/blob/master/swagger.yaml) I do not know how to represent WebSockets in Swagger, and quality swagger was not part of this plan.
+
 ### Component descriptions
 The three services are copuled by message queue and event syntax. No versioning of events was implemented.
 The UI is hosted outside of the Go microservices by NGINX itself.
@@ -59,4 +61,6 @@ The UI is hosted outside of the Go microservices by NGINX itself.
 * Things that should be configuration files instead
     * [/queuenames.go](/queuenames.go)
     * [/constants.go](/constants.go)
+    
+
     
