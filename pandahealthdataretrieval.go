@@ -13,7 +13,7 @@ func getHealthDataForPandaByName(name string) PandaHealthData {
         // Lookup if panda is alive
         var isAliveKey = nameKey % 7
         var status = "living"
-        if isAliveKey < 3 {
+        if isAliveKey < 2 {
                 status = "dead"
         }
         pandaHealthData.Status = status
