@@ -45,29 +45,6 @@
             "Health": "Green", 
             "DateUpdated": "2019-06-02T22:19:39.864Z", 
             "DateCreated": "2019-06-02T21:02:53.898Z"
-        }, 
-        {
-            "ApplicationName": "HelloGo", 
-            "EnvironmentName": "Hellogo-env", 
-            "VersionLabel": "code-pipeline-1559509350335-BuildArtifact-35e71f98-72c3-4de0-af7b-14c7d9bd5993", 
-            "Status": "Terminated", 
-            "EnvironmentArn": "arn:aws:elasticbeanstalk:us-east-1:181171223360:environment/HelloGo/Hellogo-env", 
-            "EnvironmentLinks": [], 
-            "PlatformArn": "arn:aws:elasticbeanstalk:us-east-1::platform/Go 1 running on 64bit Amazon Linux/2.11.1", 
-            "EndpointURL": "100.24.187.191", 
-            "SolutionStackName": "64bit Amazon Linux 2018.03 v2.11.1 running Go 1.12.4", 
-            "HealthStatus": "Unknown", 
-            "EnvironmentId": "e-feu6pbi2er", 
-            "CNAME": "Hellogo-env.mfrmtm2ahc.us-east-1.elasticbeanstalk.com", 
-            "AbortableOperationInProgress": false, 
-            "Tier": {
-                "Version": "1.0", 
-                "Type": "Standard", 
-                "Name": "WebServer"
-            }, 
-            "Health": "Grey", 
-            "DateUpdated": "2019-06-02T22:47:32.068Z", 
-            "DateCreated": "2019-06-01T16:42:25.411Z"
         }
     ]
 }
