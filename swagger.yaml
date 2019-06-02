@@ -60,4 +60,4 @@ definitions:
       name:
         type: "string"
       lifeExpectancyImpact:
-        type: "integer"
+        type: "number"
