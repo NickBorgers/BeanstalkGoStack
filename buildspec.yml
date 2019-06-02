@@ -5,6 +5,7 @@ phases:
     runtime-versions:
       golang: 1.12
   pre_build:
+    commands:
       - echo Pull AWS SDK
       - go get github.com/aws/aws-sdk-go
       - echo Pull Gorilla WebSocket
