@@ -1,0 +1,33 @@
+@startuml
+
+actor User
+control nginx
+boundary frontendservice as "Front End Service"
+collections datarequesttopic as "Data Request Topic"
+entity dataservice as "Data Service"
+database database as "<U+0022>Database<U+0022>"
+collections datatopic as "Data Topic"
+entity analysisservice as "Analysis Service"
+collections analysistopic as "Analysis Topic"
+
+User -> nginx: Request health information
+note left: HTTP GET /pandas/nameOfPanda
+  nginx -> frontendservice: Reverse proxy of HTTP traffic
+  note left: HTTP GET /pandas/nameOfPanda
+    frontendservice -> datarequesttopic: Need info about nameOfPanda
+    note left: SQS message: nameOfPanda
+      datarequesttopic -> dataservice: New message arrived in latest poll
+        dataservice -> database: "Lookup" nameOfPanda
+        dataservice <- database: Here is some data I "didn't make up on-demand"
+        dataservice -> datatopic: This is data about nameOfPanda
+        note left: SQS message: JSON object describing nameOfPanda
+          datatopic -> analysisservice: New message arrived in latest poll
+            analysisservice -> analysisservice: Analyze health data
+            analysisservice -> analysistopic: This is analysis about nameOfPanda
+            note left: SQS message: JSON object describing nameOfPanda
+    frontendservice <- analysistopic: New message arrived in latest poll
+  nginx <- frontendservice: Push new message to all websocket clients
+  note left: Websocket message: JSON object describing nameOfPanda
+User <- nginx: Reverse proxy of websocket traffic
+
+@enduml

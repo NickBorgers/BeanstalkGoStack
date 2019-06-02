@@ -1,3 +1,3 @@
 web: frontendservice
-crud: dataservice
+data: dataservice
 analysis: analysisservice
