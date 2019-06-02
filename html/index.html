@@ -100,7 +100,7 @@
                         reportDiv.getElementsByClassName("ExpectedAgeAtDeath")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.expectedAgeAtDeath;
                         reportDiv.getElementsByClassName("ExpectedYearsOfMortalityRemaining")[0].getElementsByClassName("Value")[0].innerText = healthAnalysis.expectedYearsOfMortalityRemaining;
                         
-                        var healthIndicatorsListDiv = reportDiv.getElementsByClassName("HealthIndicatorList");
+                        var healthIndicatorsListDiv = reportDiv.getElementsByClassName("HealthIndicatorList")[0];
                         reportDiv.removeChild(healthIndicatorsListDiv);
                         var baseHealthIndicatorSummaryDiv = healthIndicatorsListDiv.getElementsByClassName("HealthIndicatorSummary").cloneNode(true);
                         healthIndicatorsListDiv.removeChild(baseHealthIndicatorSummaryDiv);
