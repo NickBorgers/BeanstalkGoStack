@@ -1,0 +1,31 @@
+#!/bin/bash 
+
+servingPandaRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/Winston 2>&1 | grep "HTTP/1.1 202 Accepted" | wc -l)
+
+if [[ $servingPandaRequests -ne 1 ]] ; 
+then
+	echo "Not providing expected 202 response for panda requests"
+	exit 1
+else
+	echo "API looks fine"
+fi
+
+servingCssRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/css/main.css 2>&1 | grep "HTTP/1.1 200 OK" | wc -l)
+
+if [[ $servingCssRequests -ne 1 ]] ; 
+then
+	echo "Not providing CSS for web UI"
+	exit 1
+else
+	echo "CSS seems to be there"
+fi
+
+numberOfCssLines=$(curl http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/css/main.css 2>/dev/null | wc -l)
+
+if [[ $numberOfCssLines -lt 20 ]] ; 
+then
+	echo "I don't know that file is, but it's not our CSS"
+	exit 1
+else
+	echo "CSS looks about right"
+fi
