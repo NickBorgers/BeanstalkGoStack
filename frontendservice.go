@@ -4,7 +4,7 @@ import (
         "log"
         "net/http"
         "os"
-	"encoding/json"
+        "encoding/json"
 
         "github.com/gorilla/websocket"
 )
@@ -46,22 +46,22 @@ func pandaHealthAnalysisReportsHandler(w http.ResponseWriter, r *http.Request) {
         for {
                 messages := getMessages(healthAnalysisQueue)
                 for _, thisMessage := range messages {
-			var jsonPandaHealthAnalysis string = *thisMessage.Body
+                        var jsonPandaHealthAnalysis string = *thisMessage.Body
                         socket.WriteMessage(websocket.TextMessage, []byte(jsonPandaHealthAnalysis))
                         if err != nil {
                                 log.Println("Failed to write message to websocket:", err)
                                 break
                         } else {
-				deleteMessage(thisMessage, healthAnalysisQueue)
-				var pandaHealthAnalysis PandaHealthAnalysis
-				json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
-				if err == nil {
-					log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
-				} else {
-					log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
+                                deleteMessage(thisMessage, healthAnalysisQueue)
+                                var pandaHealthAnalysis PandaHealthAnalysis
+                                json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
+                                if err == nil {
+                                        log.Printf("Successfully delivered health analysis results for panda %s", pandaHealthAnalysis.Name)
+                                } else {
+                                        log.Printf("Delivered health results for some panda, but could not determine name %s", jsonPandaHealthAnalysis)
 
-				}
-			}
+                                }
+                        }
                 }
         }
 }
