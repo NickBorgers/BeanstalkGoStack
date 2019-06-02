@@ -1,9 +1,9 @@
 package main
 
 import (
-    "log"
-    "net/http"
-    "os"
+	"log"
+        "encoding/json"
+	"github.com/aws/aws-sdk-go/service/sqs"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 	}
 }
 
-func processPandaDataRequest(message *Message) {
+func processPandaDataRequest(message *sqs.Message) {
 	pandaHealthData := getHealthDataForPandaByName(message.Body)
 	jsonPandaHealthData,err := json.Marshal(pandaHealthData)
 	if err == nil {
