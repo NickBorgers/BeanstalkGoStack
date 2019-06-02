@@ -50,6 +50,8 @@ func handleWebsocketConnections(w http.ResponseWriter, r *http.Request) {
 
 	// Register our new client
         clients[socket] = true
+
+	log.Printf("New websocket client registered");
 }
 
 func retrieveAndSendAnalysisReports() {
