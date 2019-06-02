@@ -65,29 +65,37 @@ func handleWebsocketConnections(w http.ResponseWriter, r *http.Request) {
 }
 
 func retrieveAndSendAnalysisReports() {
+	// For as long as we run
 	for {
+		// Check for new messages on the analysis queue
                 messages := getMessages(healthAnalysisQueue)
+		// For each of them we get back
                 for _, thisMessage := range messages {
+			// Get the string content
                         var jsonPandaHealthAnalysis string = *thisMessage.Body
 
 			var atLeastOneSuccessfulDelivery = false
 
+			// And attempt delivery of it to all connected clients
 			for client := range clients {
         	                err := client.WriteMessage(websocket.TextMessage, []byte(jsonPandaHealthAnalysis))
+				// If a client is unavailable
 	                        if err != nil {
 	                                log.Printf("Failed to send message to a client: %v", err)
+					// Close the connection on our side and delete reference to it
 	                                client.Close()
 	                                delete(clients, client)
 	                        } else {
+					// We got through to at least one client, hooray!
 					atLeastOneSuccessfulDelivery = true
 				}
 	                }
 
-			// Attempt to report on success of message delivery
+			// Attempt to determine what panda this message was about for logging success or failure
                         var pandaHealthAnalysis PandaHealthAnalysis
                         err := json.Unmarshal([]byte(jsonPandaHealthAnalysis), &pandaHealthAnalysis)
 
-
+			// If any client received our message
 			if atLeastOneSuccessfulDelivery {
 				// Delete delivered message
 	                        deleteMessage(thisMessage, healthAnalysisQueue)
