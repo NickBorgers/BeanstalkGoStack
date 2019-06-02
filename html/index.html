@@ -5,10 +5,29 @@
 </head>
 <body>
 	<input id="PandaName" type="text" value="Winston"></input>
+	<button id="RequestHealthInformationButton" onclick="requestHealthReportOnPanda()">Click to request information about this panda.</button>
 	
 	<div id="Output"></div>
 
 	<script>
+		function requestHealthReportOnPanda() {
+			var nameOfPandaToRequestReportFor = document.getElementById("PandaName").value
+			var opts = {
+				method: 'GET',      
+				headers: {}
+			};
+			fetch('/pandas/' + nameOfPandaToRequestReportFor, opts).then(function (response) {
+				var requestResultDiv = document.createElement("div");
+				if (response.ok) {
+					requestResultDiv.classList.add("RequestSuccess");				
+					requestResultDiv.innerText = "Successfully requested information about panda: " + nameOfPandaToRequestReportFor);
+				} else {
+					requestResultDiv.classList.add("RequestFailure");
+					requestResultDiv.innerText = "Failed to request information about panda: " + nameOfPandaToRequestReportFor);
+				}
+				document.getElementById("Output").appendChild(requestResultDiv);
+			});
+		}
 
                 function buildHealthAnalysisReportStructure() {
                         var reportDiv = document.createElement("div");
