@@ -19,7 +19,7 @@ func getHealthDataForPandaByName(name string) PandaHealthData {
 	pandaHealthData.Status = status
 
         // Lookup current age of panda
-        var currentAge = nameKey % 35
+        var currentAge = nameKey % uint32(pandaMaxLife)
 	pandaHealthData.Age = uint(currentAge)
 
         // Lookup health indicators
