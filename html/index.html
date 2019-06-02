@@ -102,7 +102,7 @@
                         
                         var healthIndicatorsListDiv = reportDiv.getElementsByClassName("HealthIndicatorList")[0];
                         reportDiv.removeChild(healthIndicatorsListDiv);
-                        var baseHealthIndicatorSummaryDiv = healthIndicatorsListDiv.getElementsByClassName("HealthIndicatorSummary").cloneNode(true);
+                        var baseHealthIndicatorSummaryDiv = healthIndicatorsListDiv.getElementsByClassName("HealthIndicatorSummary")[0].cloneNode(true);
                         healthIndicatorsListDiv.removeChild(baseHealthIndicatorSummaryDiv);
 
                         healthAnalysis.HealthIndicators.forEach(function (element) {
