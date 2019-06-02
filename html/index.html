@@ -20,10 +20,10 @@
 				var requestResultDiv = document.createElement("div");
 				if (response.ok) {
 					requestResultDiv.classList.add("RequestSuccess");				
-					requestResultDiv.innerText = "Successfully requested information about panda: " + nameOfPandaToRequestReportFor);
+					requestResultDiv.innerText = "Successfully requested information about panda: " + nameOfPandaToRequestReportFor;
 				} else {
 					requestResultDiv.classList.add("RequestFailure");
-					requestResultDiv.innerText = "Failed to request information about panda: " + nameOfPandaToRequestReportFor);
+					requestResultDiv.innerText = "Failed to request information about panda: " + nameOfPandaToRequestReportFor;
 				}
 				document.getElementById("Output").appendChild(requestResultDiv);
 			});
