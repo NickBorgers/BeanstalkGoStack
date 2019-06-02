@@ -23,7 +23,7 @@ func sendMessage(message string, queueName string) (*sqs.SendMessageOutput) {
         })
 
         if err != nil {
-                log.Printf("Error", err)
+                log.Printf("Failed to send message to queue %s %v", queueName, err)
                 return nil
         }
 

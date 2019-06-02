@@ -4,6 +4,9 @@ phases:
   install:
     runtime-versions:
       golang: 1.12
+  pre_build:
+      - echo Test analysis service
+      - go test -cover analysisservice_test.go analysisservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go constants.go
   build:
     commands:
       - echo Build started on `date`
