@@ -46,7 +46,7 @@ definitions:
         minimum: 0
         maximum: 35
       status:
-        type: "boolean"
+        type: "string"
         enum:
         - "living"
         - "dead"
@@ -60,4 +60,4 @@ definitions:
       name:
         type: "string"
       lifeExpectancyImpact:
-        type: "number"
+        type: "integer"
