@@ -16,7 +16,9 @@ phases:
       - echo Build frontend service
       - go build frontendservice.go sqs.go queuenames.go
       - echo Build data service
-      - go build dataservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go
+      - go build dataservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go constants.go
+      - echo Build analysis service
+      - go build analysisservice.go sqs.go queuenames.go pandahealthdataretrieval.go pandahealthindicators.go pandahealthstructs.go constants.go
   post_build:
     commands:
       - echo Build completed on `date`
@@ -24,6 +26,7 @@ artifacts:
   files:
     - frontendservice
     - dataservice
+    - analysisservice
     - Procfile
     - .ebextensions/*
     - images/*
