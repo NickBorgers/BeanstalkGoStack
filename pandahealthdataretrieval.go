@@ -23,10 +23,10 @@ func getHealthDataForPandaByName(name string) PandaHealthData {
 	pandaHealthData.Age = uint(currentAge)
 
         // Lookup health indicators
-        var numberOfHealthIndicators = nameKey % 4
+        var numberOfHealthIndicators = nameKey % 3 + 1
         healthIndicators := make([]HealthIndicator, numberOfHealthIndicators)
         for i := uint32(0); i< numberOfHealthIndicators; i++ {
-                var thisHealthIndicator = getHealthIndicator(nameKey*i)
+                var thisHealthIndicator = getHealthIndicator(nameKey + nameKey*i)
                 healthIndicators[i] = thisHealthIndicator
         }
 
