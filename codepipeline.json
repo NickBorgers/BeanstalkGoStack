@@ -112,27 +112,6 @@
                 ]
             }, 
             {
-                "name": "Manual-Approval", 
-                "actions": [
-                    {
-                        "inputArtifacts": [], 
-                        "name": "Manual-Approval", 
-                        "region": "us-east-1", 
-                        "actionTypeId": {
-                            "category": "Approval", 
-                            "owner": "AWS", 
-                            "version": "1", 
-                            "provider": "Manual"
-                        }, 
-                        "outputArtifacts": [], 
-                        "configuration": {
-                            "ExternalEntityLink": "http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/"
-                        }, 
-                        "runOrder": 1
-                    }
-                ]
-            }, 
-            {
                 "name": "Deploy", 
                 "actions": [
                     {
