@@ -63,7 +63,7 @@ The UI is hosted outside of the Go microservices by NGINX itself.
     * [Passthrough during build](/buildspec.yml#L35-L36)
     * [Beanstalk mapping](/.ebextensions/go-settings.config#L3-L4)
     * Pure JavaScript and CSS because I don't do UI frameworks
-    * Does nothing but trigger HTTP GETs, make Websocket connection, and [format/display JSON analysis](/html/index.html#L91-L124) reports returned via JSON
+    * Does nothing but trigger HTTP GETs, make Websocket connection, and [format/display JSON analysis](/html/index.html#L92-L125) reports returned via JSON
 * Shared Go code
     * These should be in packages, but I don't know how to do that and am ready to take the rest of my Sunday off
     * [/pandahealthstructs.go](/pandahealthstructs.go)
@@ -71,6 +71,7 @@ The UI is hosted outside of the Go microservices by NGINX itself.
 * Things that should be configuration files instead
     * [/queuenames.go](/queuenames.go)
     * [/constants.go](/constants.go)
+    * [SQS polling interval](https://github.com/NickBorgers/BeanstalkGoStack/blob/master/sqs.go#L45)
     
 
     
