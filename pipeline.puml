@@ -6,8 +6,7 @@ Develper -right-> (Merge to master)
 (Merge to master) -right-> (AWS CodeBuild\n of Go services) 
 (AWS CodeBuild\n of Go services) -right-> (CI: AWS CodePipeline Deploy\n to AWS Elastic Beanstalk)
 (CI: AWS CodePipeline Deploy\n to AWS Elastic Beanstalk) -right-> (AWS CodeBuild runs\n integration test)
-(AWS CodeBuild runs\n integration test) -right-> (Manual approval step because\n DevOps team is immature; just\n started a few couple days ago)
-(Manual approval step because\n DevOps team is immature; just\n started a few couple days ago) -right-> (Prod: AWS CodePipeline Deploy\n to AWS Elastic Beanstalk)
+(AWS CodeBuild runs\n integration test) -right-> (Prod: AWS CodePipeline Deploy\n to AWS Elastic Beanstalk)
 (Prod: AWS CodePipeline Deploy\n to AWS Elastic Beanstalk) -right-> (Beer)
 
 @enduml
