@@ -8,4 +8,5 @@ var pandaHealthIndicators = [...]HealthIndicator{
         HealthIndicator{Name: "Dumb", LifeExpectancyImpact: -.2},
         HealthIndicator{Name: "Often pokes self in eye with Bamboo", LifeExpectancyImpact: -.1},
         HealthIndicator{Name: "Stares at the sun", LifeExpectancyImpact: -.1},
+        HealthIndicator{Name: "Left-pawed", LifeExpectancyImpact: -.1},
 }
