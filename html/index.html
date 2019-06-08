@@ -46,27 +46,27 @@
 
                         var nameDiv = referenceOutputDiv.cloneNode(true)
                                 nameDiv.classList.add("Name");
-                                nameDiv.getElementsByClassName("Label")[0].innerHTML = "Name:";
+                                nameDiv.getElementsByClassName("Label")[0].innerText = "Name:";
                         reportDiv.appendChild(nameDiv);
 
                         var statusDiv = referenceOutputDiv.cloneNode(true)
                                 statusDiv.classList.add("Status");
-                                statusDiv.getElementsByClassName("Label")[0].innerHTML = "Status: ";
+                                statusDiv.getElementsByClassName("Label")[0].innerText = "Status: ";
                         reportDiv.appendChild(statusDiv);
 
                         var ageDiv = referenceOutputDiv.cloneNode(true)
                                 ageDiv.classList.add("Age");
-                                ageDiv.getElementsByClassName("Label")[0].innerHTML = "Current age (in years): ";
+                                ageDiv.getElementsByClassName("Label")[0].innerText = "Current age (in years): ";
                         reportDiv.appendChild(ageDiv);
 
                         var expectedAgeAtDeathDiv = referenceOutputDiv.cloneNode(true)
                                 expectedAgeAtDeathDiv.classList.add("ExpectedAgeAtDeath");
-                                expectedAgeAtDeathDiv.getElementsByClassName("Label")[0].innerHTML = "Expected age at death (in years): ";
+                                expectedAgeAtDeathDiv.getElementsByClassName("Label")[0].innerText = "Expected age at death (in years): ";
                         reportDiv.appendChild(expectedAgeAtDeathDiv);
 
                         var expectedYearsOfMortalityRemainingDiv = referenceOutputDiv.cloneNode(true)
                                 expectedYearsOfMortalityRemainingDiv.classList.add("ExpectedYearsOfMortalityRemaining");
-                                expectedYearsOfMortalityRemainingDiv.getElementsByClassName("Label")[0].innerHTML = "Expected life reamaining (in years): "
+                                expectedYearsOfMortalityRemainingDiv.getElementsByClassName("Label")[0].innerText = "Expected life reamaining (in years): "
                         reportDiv.appendChild(expectedYearsOfMortalityRemainingDiv);
 
 
@@ -76,11 +76,11 @@
                                         healthIndicatorSummaryDiv.classList.add("HealthIndicatorSummary");
                                         var healthIndicatorNameDiv = referenceOutputDiv.cloneNode(true);
                                                 healthIndicatorNameDiv.classList.add("IndicatorName");
-                                                healthIndicatorNameDiv.getElementsByClassName("Label")[0].innerHTML = "Health indicator: ";
+                                                healthIndicatorNameDiv.getElementsByClassName("Label")[0].innerText = "Health indicator: ";
                                         healthIndicatorSummaryDiv.appendChild(healthIndicatorNameDiv);
                                         var healthIndicatorImpactDiv = referenceOutputDiv.cloneNode(true);
                                                 healthIndicatorImpactDiv.classList.add("IndicatorImpact");
-                                                healthIndicatorImpactDiv.getElementsByClassName("Label")[0].innerHTML = "Impact on Life Expectancy: ";
+                                                healthIndicatorImpactDiv.getElementsByClassName("Label")[0].innerText = "Impact on Life Expectancy: ";
                                         healthIndicatorSummaryDiv.appendChild(healthIndicatorImpactDiv);
                                 healthIndicatorsListDiv.appendChild(healthIndicatorSummaryDiv);
                         reportDiv.appendChild(healthIndicatorsListDiv);

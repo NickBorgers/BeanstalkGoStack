@@ -4,7 +4,7 @@
 curl -i --no-buffer -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Host: beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com" -H "Origin: http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com" -H "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" -H "Sec-WebSocket-Version: 13" --output websocket.log --max-time 3 beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/healthReports 2>/dev/null &
 
 # Check if API requests are being fulfilled
-servingPandaRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/Winston 2>&1 | grep "HTTP/1.1 202 Accepted" | wc -l)
+servingPandaRequests=$(curl -v http://beanstalkgostack-ci.ifmjm7aqmb.us-east-1.elasticbeanstalk.com/pandas/TestPanda 2>&1 | grep "HTTP/1.1 202 Accepted" | wc -l)
 
 if [[ $servingPandaRequests -ne 1 ]] ; 
 then
