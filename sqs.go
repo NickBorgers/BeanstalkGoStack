@@ -42,7 +42,7 @@ func getMessages(queueName string) ([]*sqs.Message) {
                         MessageAttributeNames: aws.StringSlice([]string{
                         "All",
                 }),
-                WaitTimeSeconds: aws.Int64(10),
+                WaitTimeSeconds: aws.Int64(20),
         })
 
         if err != nil {
